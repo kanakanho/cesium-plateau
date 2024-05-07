@@ -1,24 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
     <head>
         <script src="https://cesium.com/downloads/cesiumjs/releases/1.82/Build/Cesium/Cesium.js"></script>
         <link
             href="https://cesium.com/downloads/cesiumjs/releases/1.82/Build/Cesium/Widgets/widgets.css"
             rel="stylesheet"
         />
-
         <link href="style.css" rel="stylesheet" />
     </head>
     <body>
         <div id="cesiumContainer"></div>
         <script>
             // Get your token from https://cesium.com/ion/tokens
-            Cesium.Ion.defaultAccessToken = "your_token_here";
-            const viewer = new Cesium.Viewer("cesiumContainer");
+            Cesium.Ion.defaultAccessToken =
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxYzU4MDY2YS05N2I5LTQ2MWUtYjE1Yy1mZGU3MDI4OWY0OTkiLCJpZCI6MjEyMDgwLCJpYXQiOjE3MTQzOTgwODF9.QZ61yhbmF_8vtn6uZzWCv8H3FY046Ef92QL-zB9rh4Y";
+            // imageryProviderを設定
+            const viewer = new Cesium.Viewer("cesiumContainer", {
+                imageryProvider: new Cesium.UrlTemplateImageryProvider({
+                    url: "https://gic-plateau.s3.ap-northeast-1.amazonaws.com/2020/ortho/tiles/{z}/{x}/{y}.png",
+                }),
+            });
             //①建物モデルの追加
             var your_3d_tiles = viewer.scene.primitives.add(
                 new Cesium.Cesium3DTileset({
-                    url: "https://plateau.geospatial.jp/main/data/3d-tiles/bldg/13100_tokyo/13104_shinjuku-ku/low_resolution/tileset.json",
+                    url: "https://assets.cms.plateau.reearth.io/assets/80/29d793-50d4-4124-a2a1-dc7100a6793e/23100_nagoya-shi_2021_3dtiles_2_op_bldg_23102_higashi-ku_lod2/tileset.json",
+                })
+            );
+            var your_3d_tiles = viewer.scene.primitives.add(
+                new Cesium.Cesium3DTileset({
+                    url: "https://assets.cms.plateau.reearth.io/assets/39/ee55cb-bf3a-4692-bbe9-4ee5db730231/23100_nagoya-shi_2021_3dtiles_2_op_bldg_23101_chikusa-ku_lod1/tileset.json",
+                })
+            );
+            var your_3d_tiles = viewer.scene.primitives.add(
+                new Cesium.Cesium3DTileset({
+                    url: "https://assets.cms.plateau.reearth.io/assets/a7/c8258e-0add-4d31-81e9-bc74e4a673ec/23100_nagoya-shi_2021_3dtiles_2_op_bldg_23115_meito-ku_lod1/tileset.json",
                 })
             );
             // ②カメラのズーム
